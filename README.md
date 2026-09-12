@@ -13,6 +13,8 @@ Learning management dashboard — browse courses, track lesson progress, resume 
 | `/courses/[courseId]` | Course detail + module/lesson checklist (protected) |
 | `/courses/[courseId]/lessons/[lessonId]` | Lesson view + mock video player (protected) |
 
+Clerk's prebuilt components (`<SignIn>`, `<UserButton>`) use the official `@clerk/ui/themes` shadcn theme (via `appearance={{ theme: shadcn }}` in the root `ClerkProvider`) so they visually match the rest of the shadcn/ui design system instead of Clerk's default styling. Also fixed a base-styling bug where `--font-sans` was self-referential (`var(--font-sans)` pointing to itself) instead of resolving to the Geist font set up via `next/font` — body text was silently falling back to the browser default font.
+
 Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to attach session state. The actual auth gate lives in `src/app/(dashboard)/layout.tsx`, shared by every route in the `(dashboard)` route group — it checks `auth()` server-side and redirects to `/sign-in` if there's no `userId`. Centralizing the check in one layout (rather than per-page) avoids duplicating auth logic and follows Clerk's current guidance to prefer resource-based checks over path-matching middleware.
 
 ### Key components
