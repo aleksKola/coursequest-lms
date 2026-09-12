@@ -22,10 +22,14 @@ Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to at
 | `Header` | `components/layout/Header.tsx` | App header with Clerk `<UserButton>` (avatar, name, sign-out) |
 | `CourseCard` | `components/courses/CourseCard.tsx` | Single course preview: title, description, category/difficulty/duration tags, progress bar, completion badge. Takes `progressPercent` as a prop rather than computing it — progress state lives in the page, not the card. |
 | `CourseGrid` | `components/courses/CourseGrid.tsx` | Renders a responsive grid of `CourseCard`s. Takes `progressByCourseId: Record<string, number>` as a prop — the page owns progress state, the grid just distributes it. |
+| `SearchBar` | `components/courses/SearchBar.tsx` | Controlled search input, title/description filtering handled by the catalog page (debounced via `useDebouncedValue` once wired). |
+| `Filters` | `components/courses/Filters.tsx` | Category, difficulty, and completion-status `Select` dropdowns. Controlled — the catalog page owns `FilterState` and passes it down. |
 
 ### Custom hooks
 
-*(not yet built — will document here once added)*
+| Hook | Location | Purpose |
+|---|---|---|
+| `useDebouncedValue` | `hooks/useDebouncedValue.ts` | Generic debounce — delays updating the returned value until `delayMs` has passed with no new input. Used to debounce the catalog search (300ms) so filtering doesn't re-run on every keystroke. |
 
 ## Local Setup
 
