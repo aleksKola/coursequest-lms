@@ -21,7 +21,7 @@ Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to at
 |---|---|---|
 | `Header` | `components/layout/Header.tsx` | App header with Clerk `<UserButton>` (avatar, name, sign-out) |
 | `CourseCard` | `components/courses/CourseCard.tsx` | Single course preview: title, description, category/difficulty/duration tags, progress bar, completion badge. Takes `progressPercent` as a prop rather than computing it — progress state lives in the page, not the card. |
-| `CourseGrid` | `components/courses/CourseGrid.tsx` | Renders a responsive grid of `CourseCard`s. Takes `progressByCourseId: Record<string, number>` as a prop — the page owns progress state, the grid just distributes it. |
+| `CourseGrid` | `components/courses/CourseGrid.tsx` | Renders a responsive grid of `CourseCard`s. Takes `progressByCourseId: Record<string, number>` as a prop — the page owns progress state, the grid just distributes it. Also owns the empty state (shown when `courses.length === 0`) since that's part of "how to render whatever list it's given." |
 | `SearchBar` | `components/courses/SearchBar.tsx` | Controlled search input, title/description filtering handled by the catalog page (debounced via `useDebouncedValue` once wired). |
 | `Filters` | `components/courses/Filters.tsx` | Category, difficulty, and completion-status `Select` dropdowns. Controlled — the catalog page owns `FilterState` and passes it down. |
 | `LessonItem` | `components/lessons/LessonItem.tsx` | Single lesson row: checkbox + title + duration. Fires `onToggle()`, doesn't touch progress state itself. |
