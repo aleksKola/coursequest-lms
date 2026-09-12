@@ -3,6 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 export function CourseDetailSkeleton() {
   return (
     <div className="flex flex-col gap-6 p-6">
+      <Skeleton className="aspect-video w-full max-w-2xl" />
+
       <div className="flex flex-col gap-2">
         <Skeleton className="h-6 w-1/2" />
         <Skeleton className="h-4 w-3/4" />

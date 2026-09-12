@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -15,24 +16,36 @@ export function CourseCard({ course, progressPercent }: CourseCardProps) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="flex flex-col gap-3 rounded-xl border p-4 transition-colors hover:bg-muted/50"
+      className="flex flex-col overflow-hidden rounded-xl border transition-colors hover:bg-muted/50"
     >
-      <div className="flex items-start justify-between gap-2">
+      <div className="relative aspect-video w-full">
+        <Image
+          src={course.thumbnail}
+          alt={course.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+        />
+        {isComplete && (
+          <Badge className="absolute right-2 top-2">Completed</Badge>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col gap-3 p-4">
         <h3 className="font-medium leading-snug">{course.title}</h3>
-        {isComplete && <Badge>Completed</Badge>}
+
+        <p className="line-clamp-2 text-sm text-muted-foreground">
+          {course.description}
+        </p>
+
+        <div className="flex flex-wrap gap-1.5">
+          <Badge variant="secondary">{course.category}</Badge>
+          <Badge variant="secondary">{course.difficulty}</Badge>
+          <Badge variant="secondary">{durationLabel}</Badge>
+        </div>
+
+        <Progress value={progressPercent} />
       </div>
-
-      <p className="line-clamp-2 text-sm text-muted-foreground">
-        {course.description}
-      </p>
-
-      <div className="flex flex-wrap gap-1.5">
-        <Badge variant="secondary">{course.category}</Badge>
-        <Badge variant="secondary">{course.difficulty}</Badge>
-        <Badge variant="secondary">{durationLabel}</Badge>
-      </div>
-
-      <Progress value={progressPercent} />
     </Link>
   );
 }
