@@ -38,7 +38,7 @@ type FiltersProps = {
 
 export function Filters({ filters, onChange }: FiltersProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <>
       <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
         <ListFilter className="size-4" />
         Filter by:
@@ -49,7 +49,7 @@ export function Filters({ filters, onChange }: FiltersProps) {
           if (value) onChange({ ...filters, category: value as FilterState["category"] });
         }}
       >
-        <SelectTrigger>
+        <SelectTrigger className="w-full sm:w-fit">
           <SelectValue>
             {(value: string) => (value === "All" ? "All Categories" : value)}
           </SelectValue>
@@ -70,7 +70,7 @@ export function Filters({ filters, onChange }: FiltersProps) {
           if (value) onChange({ ...filters, difficulty: value as FilterState["difficulty"] });
         }}
       >
-        <SelectTrigger>
+        <SelectTrigger className="w-full sm:w-fit">
           <SelectValue>
             {(value: string) => (value === "All" ? "All Difficulties" : value)}
           </SelectValue>
@@ -91,7 +91,7 @@ export function Filters({ filters, onChange }: FiltersProps) {
           if (value) onChange({ ...filters, status: value as CompletionStatus });
         }}
       >
-        <SelectTrigger>
+        <SelectTrigger className="w-full sm:w-fit">
           <SelectValue>
             {(value: string) => (value === "All" ? "All Courses" : value)}
           </SelectValue>
@@ -104,6 +104,6 @@ export function Filters({ filters, onChange }: FiltersProps) {
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </>
   );
 }
