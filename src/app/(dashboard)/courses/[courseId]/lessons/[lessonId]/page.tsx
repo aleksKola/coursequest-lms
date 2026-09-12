@@ -27,32 +27,34 @@ export default function LessonPage() {
   const isComplete = isLessonComplete(course.id, lesson.id);
 
   return (
-    <div className="flex flex-col gap-4 p-6">
-      <Link
-        href={`/courses/${course.id}`}
-        className="text-sm text-muted-foreground hover:underline"
-      >
-        &larr; Back to {course.title}
-      </Link>
-
-      <MockVideoPlayer thumbnail={course.thumbnail} title={lesson.title} />
-
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm text-muted-foreground">{module.title}</p>
-          <h1 className="text-xl font-semibold">{lesson.title}</h1>
-          <p className="text-sm text-muted-foreground">
-            {lesson.durationMinutes} min
-          </p>
+    <div className="flex flex-col gap-4">
+      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-neutral-900">
+        <Link
+          href={`/courses/${course.id}`}
+          className="absolute left-4 top-4 z-10 text-sm text-white/90 hover:underline"
+        >
+          &larr; Back to Course Modules
+        </Link>
+        <div className="mx-auto max-w-4xl">
+          <MockVideoPlayer thumbnail={course.thumbnail} title={lesson.title} />
         </div>
+      </div>
 
-        <label className="flex items-center gap-2 text-sm">
-          <Checkbox
-            checked={isComplete}
-            onCheckedChange={() => toggleLesson(course.id, lesson.id)}
-          />
-          Mark complete
-        </label>
+      <div className="flex flex-col gap-1 px-6 pb-6">
+        <p className="text-sm text-muted-foreground">{module.title}</p>
+        <div className="flex items-center gap-4">
+          <h1 className="text-xl font-semibold">{lesson.title}</h1>
+          <label className="flex w-fit items-center gap-2 text-sm">
+            <Checkbox
+              checked={isComplete}
+              onCheckedChange={() => toggleLesson(course.id, lesson.id)}
+            />
+            {isComplete ? "Completed" : "Mark complete"}
+          </label>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          {lesson.durationMinutes} min
+        </p>
       </div>
     </div>
   );
