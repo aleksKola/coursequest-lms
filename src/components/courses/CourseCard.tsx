@@ -27,7 +27,9 @@ export function CourseCard({ course, progressPercent }: CourseCardProps) {
           className="object-cover"
         />
         {isComplete && (
-          <Badge className="absolute right-2 top-2">Completed</Badge>
+          <Badge className="absolute right-2 top-2 bg-green-600 text-white dark:bg-green-500">
+            Completed
+          </Badge>
         )}
       </div>
 
@@ -44,7 +46,25 @@ export function CourseCard({ course, progressPercent }: CourseCardProps) {
           <Badge variant="secondary">{durationLabel}</Badge>
         </div>
 
-        <Progress value={progressPercent} />
+        <div className="flex items-center gap-2">
+          <Progress
+            value={progressPercent}
+            className={
+              isComplete
+                ? "flex-1 [&_[data-slot=progress-indicator]]:bg-green-600 dark:[&_[data-slot=progress-indicator]]:bg-green-500"
+                : "flex-1"
+            }
+          />
+          <span
+            className={
+              isComplete
+                ? "text-sm text-green-600 dark:text-green-500"
+                : "text-sm text-muted-foreground"
+            }
+          >
+            {progressPercent}%
+          </span>
+        </div>
       </div>
     </Link>
   );

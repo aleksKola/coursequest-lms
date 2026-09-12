@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { getCourseById } from "@/lib/courses";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
@@ -27,9 +28,14 @@ export default function CourseDetailPage() {
   }
 
   const progressPercent = progressByCourseId[course.id] ?? 0;
+  const isComplete = progressPercent === 100;
 
   return (
     <div className="flex flex-col gap-6 p-6">
+      <Link href="/" className="text-sm text-muted-foreground hover:underline">
+        &larr; Back to All Courses
+      </Link>
+
       <div className="flex flex-col items-center gap-6 text-center">
         <div className="relative aspect-video w-full max-w-2xl overflow-hidden rounded-xl">
           <Image
@@ -50,8 +56,17 @@ export default function CourseDetailPage() {
             <span>{course.enrolledCount.toLocaleString()} enrolled</span>
             <span>{Math.round(course.durationMinutes / 60)}h total</span>
             <div className="flex items-center gap-2">
-              <Progress value={progressPercent} className="w-32" />
-              <span>{progressPercent}% completed</span>
+              <Progress
+                value={progressPercent}
+                className={
+                  isComplete
+                    ? "w-32 [&_[data-slot=progress-indicator]]:bg-green-600 dark:[&_[data-slot=progress-indicator]]:bg-green-500"
+                    : "w-32"
+                }
+              />
+              <span className={isComplete ? "text-green-600 dark:text-green-500" : undefined}>
+                {progressPercent}% completed
+              </span>
             </div>
           </div>
         </div>
