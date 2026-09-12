@@ -48,9 +48,12 @@ export default function CatalogPage() {
 
   return (
     <div className="flex flex-col gap-4 p-6">
-      <div className="flex flex-wrap items-center gap-3">
-        <SearchBar value={search} onChange={setSearch} />
-        <Filters filters={filters} onChange={setFilters} />
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-xl font-semibold">Courses</h1>
+        <div className="flex flex-wrap items-center gap-3">
+          <SearchBar value={search} onChange={setSearch} />
+          <Filters filters={filters} onChange={setFilters} />
+        </div>
       </div>
       <CourseGrid courses={filteredCourses} progressByCourseId={progressByCourseId} />
     </div>
