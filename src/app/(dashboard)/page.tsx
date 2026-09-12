@@ -1,3 +1,10 @@
+import { CourseGrid } from "@/components/courses/CourseGrid";
+import { courses } from "@/lib/courses";
+
 export default function CatalogPage() {
-  return <div>Catalog page placeholder</div>;
+  return (
+    <div className="p-6">
+      <CourseGrid courses={courses} progressByCourseId={{}} />
+    </div>
+  );
 }
