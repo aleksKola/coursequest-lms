@@ -24,6 +24,8 @@ Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to at
 | `CourseGrid` | `components/courses/CourseGrid.tsx` | Renders a responsive grid of `CourseCard`s. Takes `progressByCourseId: Record<string, number>` as a prop — the page owns progress state, the grid just distributes it. |
 | `SearchBar` | `components/courses/SearchBar.tsx` | Controlled search input, title/description filtering handled by the catalog page (debounced via `useDebouncedValue` once wired). |
 | `Filters` | `components/courses/Filters.tsx` | Category, difficulty, and completion-status `Select` dropdowns. Controlled — the catalog page owns `FilterState` and passes it down. |
+| `LessonItem` | `components/lessons/LessonItem.tsx` | Single lesson row: checkbox + title + duration. Fires `onToggle()`, doesn't touch progress state itself. |
+| `ModuleSection` | `components/lessons/ModuleSection.tsx` | Module title + its `LessonItem`s. Takes `isLessonComplete`/`onToggleLesson` callbacks scoped to lesson id, so it doesn't need to know about course id itself. |
 
 ### Custom hooks
 
