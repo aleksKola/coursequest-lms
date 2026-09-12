@@ -1,13 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 import { CourseGrid } from "@/components/courses/CourseGrid";
 import { SearchBar } from "@/components/courses/SearchBar";
 import { Filters, type FilterState } from "@/components/courses/Filters";
 import { courses } from "@/lib/courses";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
 
 export default function CatalogPage() {
+  const { user } = useUser();
+  const { progressByCourseId } = useCourseProgress(user?.id);
+
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search, 300).trim().toLowerCase();
   const [filters, setFilters] = useState<FilterState>({
@@ -15,8 +20,6 @@ export default function CatalogPage() {
     difficulty: "All",
     status: "All",
   });
-
-  const progressByCourseId: Record<string, number> = {};
 
   const filteredCourses = courses.filter((course) => {
     const matchesCategory =

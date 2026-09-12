@@ -30,6 +30,7 @@ Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to at
 | Hook | Location | Purpose |
 |---|---|---|
 | `useDebouncedValue` | `hooks/useDebouncedValue.ts` | Generic debounce — delays updating the returned value until `delayMs` has passed with no new input. Used to debounce the catalog search (300ms) so filtering doesn't re-run on every keystroke. |
+| `useCourseProgress` | `hooks/useCourseProgress.ts` | Source of truth for lesson completion, persisted to `localStorage["courseProgress:<userId>"]` (keyed by Clerk `userId`, no backend). Stores raw completed-lesson IDs per course, not percentages — `progressByCourseId` (a `Record<courseId, number>`) is derived from that via `useMemo` against each course's total lesson count. Exposes `toggleLesson(courseId, lessonId)` and `isLessonComplete(courseId, lessonId)` for the lesson checklist. |
 
 ## Local Setup
 
