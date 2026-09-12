@@ -5,12 +5,13 @@ import { useUser } from "@clerk/nextjs";
 import { CourseGrid } from "@/components/courses/CourseGrid";
 import { SearchBar } from "@/components/courses/SearchBar";
 import { Filters, type FilterState } from "@/components/courses/Filters";
+import { CatalogSkeleton } from "@/components/courses/CatalogSkeleton";
 import { courses } from "@/lib/courses";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 
 export default function CatalogPage() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const { progressByCourseId } = useCourseProgress(user?.id);
 
   const [search, setSearch] = useState("");
@@ -20,6 +21,10 @@ export default function CatalogPage() {
     difficulty: "All",
     status: "All",
   });
+
+  if (!isLoaded) {
+    return <CatalogSkeleton />;
+  }
 
   const filteredCourses = courses.filter((course) => {
     const matchesCategory =

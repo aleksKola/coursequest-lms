@@ -6,15 +6,20 @@ import { getCourseById } from "@/lib/courses";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { ModuleSection } from "@/components/lessons/ModuleSection";
 import { Progress } from "@/components/ui/progress";
+import { CourseDetailSkeleton } from "@/components/courses/CourseDetailSkeleton";
 
 export default function CourseDetailPage() {
   const { courseId } = useParams<{ courseId: string }>();
   const course = getCourseById(courseId);
 
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const { progressByCourseId, isLessonComplete, toggleLesson } = useCourseProgress(
     user?.id
   );
+
+  if (!isLoaded) {
+    return <CourseDetailSkeleton />;
+  }
 
   if (!course) {
     return <div className="p-6">Course not found.</div>;

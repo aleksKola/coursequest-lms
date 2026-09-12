@@ -27,6 +27,7 @@ Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to at
 | `LessonItem` | `components/lessons/LessonItem.tsx` | Single lesson row: checkbox + title + duration. Fires `onToggle()`, doesn't touch progress state itself. |
 | `ModuleSection` | `components/lessons/ModuleSection.tsx` | Module title + its `LessonItem`s. Takes `isLessonComplete`/`onToggleLesson` callbacks scoped to lesson id, so it doesn't need to know about course id itself. |
 | `MockVideoPlayer` | `components/lessons/MockVideoPlayer.tsx` | Styled static player (course thumbnail backdrop, fake play button, fake progress bar) rather than an HTML5 `<video>` tag — `courses.json` has no real video URLs, so a `<video>` with no `src` would just show broken native controls. |
+| `CatalogSkeleton` / `CourseDetailSkeleton` | `components/courses/` | Loading states shown while Clerk's `useUser()` resolves (`isLoaded === false`). Course data itself is static JSON with no real network delay, so Clerk's auth resolution is the one genuinely async thing worth gating on. |
 
 ### Custom hooks
 
