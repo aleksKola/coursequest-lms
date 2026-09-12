@@ -26,6 +26,7 @@ Route protection: `src/proxy.ts` runs `clerkMiddleware()` on every request to at
 | `Filters` | `components/courses/Filters.tsx` | Category, difficulty, and completion-status `Select` dropdowns. Controlled — the catalog page owns `FilterState` and passes it down. |
 | `LessonItem` | `components/lessons/LessonItem.tsx` | Single lesson row: checkbox + title + duration. Fires `onToggle()`, doesn't touch progress state itself. |
 | `ModuleSection` | `components/lessons/ModuleSection.tsx` | Module title + its `LessonItem`s. Takes `isLessonComplete`/`onToggleLesson` callbacks scoped to lesson id, so it doesn't need to know about course id itself. |
+| `MockVideoPlayer` | `components/lessons/MockVideoPlayer.tsx` | Styled static player (course thumbnail backdrop, fake play button, fake progress bar) rather than an HTML5 `<video>` tag — `courses.json` has no real video URLs, so a `<video>` with no `src` would just show broken native controls. |
 
 ### Custom hooks
 

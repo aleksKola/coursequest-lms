@@ -37,3 +37,14 @@ export function getCourseById(id: string): Course | undefined {
 export function getTotalLessonCount(course: Course): number {
   return course.modules.reduce((sum, mod) => sum + mod.lessons.length, 0);
 }
+
+export function getLessonById(
+  course: Course,
+  lessonId: string
+): { module: Module; lesson: Lesson } | undefined {
+  for (const courseModule of course.modules) {
+    const lesson = courseModule.lessons.find((l) => l.id === lessonId);
+    if (lesson) return { module: courseModule, lesson };
+  }
+  return undefined;
+}

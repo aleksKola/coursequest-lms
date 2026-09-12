@@ -38,6 +38,7 @@ export default function CourseDetailPage() {
         {course.modules.map((module) => (
           <ModuleSection
             key={module.id}
+            courseId={course.id}
             module={module}
             isLessonComplete={(lessonId) => isLessonComplete(course.id, lessonId)}
             onToggleLesson={(lessonId) => toggleLesson(course.id, lessonId)}

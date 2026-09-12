@@ -1,20 +1,34 @@
+import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Lesson } from "@/lib/courses";
 
 type LessonItemProps = {
+  courseId: string;
   lesson: Lesson;
   isComplete: boolean;
   onToggle: () => void;
 };
 
-export function LessonItem({ lesson, isComplete, onToggle }: LessonItemProps) {
+export function LessonItem({
+  courseId,
+  lesson,
+  isComplete,
+  onToggle,
+}: LessonItemProps) {
   return (
-    <label className="flex items-center gap-3 rounded-md px-2 py-1.5 hover:bg-muted/50">
+    <div className="flex items-center gap-3 rounded-md px-2 py-1.5 hover:bg-muted/50">
       <Checkbox checked={isComplete} onCheckedChange={onToggle} />
-      <span className={isComplete ? "flex-1 text-muted-foreground line-through" : "flex-1"}>
+      <Link
+        href={`/courses/${courseId}/lessons/${lesson.id}`}
+        className={
+          isComplete
+            ? "flex-1 text-muted-foreground line-through hover:underline"
+            : "flex-1 hover:underline"
+        }
+      >
         {lesson.title}
-      </span>
+      </Link>
       <span className="text-sm text-muted-foreground">{lesson.durationMinutes}m</span>
-    </label>
+    </div>
   );
 }
