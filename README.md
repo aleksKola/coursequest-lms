@@ -66,12 +66,13 @@ Deployed on Vercel: https://coursequest-lms.vercel.app
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
 - `CLERK_SECRET_KEY`
 
-**Clerk allowed origins:** this project uses a Clerk production instance. Production instances restrict which domains can use the API keys, so the deployed Vercel URL (`https://coursequest-lms.vercel.app`) was added under Clerk Dashboard → Domains to allow auth requests from it.
+**Clerk allowed origins:** this project uses a free Clerk **development** instance, deployed on the default `*.vercel.app` domain. Per [Clerk's own Vercel deployment guide](https://clerk.com/docs/guides/development/deployment/vercel), a `*.vercel.app` domain cannot be used for a Clerk **production** instance (production requires a custom domain for DNS/proxy verification). Development instances aren't restricted this way, so no domain/allowed-origins configuration was needed to make auth work on the deployed URL.
 
 ## Trade-offs
 
 - **Default shadcn/Clerk styling beyond dark mode.** Added dark mode (via `next-themes`) and Clerk's shadcn theme for visual consistency, but didn't go further into a custom color scheme, button variants, or fully custom-branded sign-in/sign-up screens. Prioritized functional completeness across all required features over deep visual polish given the time box.
 - **Progress stored as raw completed-lesson IDs, not percentages.** `progressByCourseId` is derived via `useMemo` from the raw completed-lesson state rather than stored directly, so it can't drift out of sync with actual lesson completion. Slightly more computation on read, but avoids synchronization issues.
+- **Clerk development instance instead of production.** Tried a production instance, but Clerk's own docs confirm a `*.vercel.app` domain can't be used for production (custom domain + DNS verification required). Since this project doesn't have a custom domain, stayed on the dev instance, which the assessment brief explicitly says is sufficient.
 
 ## AI Usage
 
